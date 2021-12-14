@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"strconv"
+	"time"
 )
 
 func main() {
@@ -32,4 +33,25 @@ func main() {
 	for index, value := range s {
 		fmt.Println(index, value)
 	}
+
+	// channel and go rutines call
+	c := make(chan int)
+	go doSomething(c)
+	fmt.Println(<-c)
+
+	// pointers
+	g := 25
+	fmt.Println(g)
+	h := &g
+	// print memory pointer
+	fmt.Println(h)
+	// print value
+	fmt.Println(*h)
+}
+
+// go rutines
+func doSomething(c chan int) {
+	time.Sleep(3 * time.Second)
+	fmt.Println("Done")
+	c <- 1
 }
